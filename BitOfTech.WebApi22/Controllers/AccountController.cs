@@ -117,7 +117,7 @@ namespace BitOfTech.WebApi22.Controllers
 
                 return Created(locationHeader, TheModelFactory.Create(user));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return NotFound();
             }
