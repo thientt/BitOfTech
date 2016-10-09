@@ -11,8 +11,10 @@ namespace BitOfTech.WebApi22.Infrastructure
     /// </summary>
     public class ApplicationDbContext : ApplicationIdentityDbContext
     {
+        private const string connOthIdentity = "OAuthIdentity";
+
         public ApplicationDbContext()
-            : base("OAuthIdentity")
+            : base(connOthIdentity)
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = true;
@@ -29,6 +31,16 @@ namespace BitOfTech.WebApi22.Infrastructure
     /// </summary>
     public class ApplicationIdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, long, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
+        private const string TABLE_USER = "User";
+        private const string TABLE_ROLE = "Role";
+        private const string TABLE_USE_RROLE = "UserRole";
+        private const string TABLE_CLAIM = "Claim";
+        private const string TABLE_LOGIN = "Login";
+
+        private const string PRIMARY_KEY_USER = "UserId";
+        private const string PRIMRY_KEY_ROLE = "RoleId";
+        private const string PRIMARY_KEY_CLAIM = "ClaimId";
+
         public ApplicationIdentityDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
@@ -38,24 +50,24 @@ namespace BitOfTech.WebApi22.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUser>().
-                ToTable("User").
+                ToTable(TABLE_USER).
                 Property<long>(x => x.Id).
-                HasColumnName("UserId").
+                HasColumnName(PRIMARY_KEY_USER).
                 HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<ApplicationRole>().
-                ToTable("Role").
+                ToTable(TABLE_ROLE).
                 Property<long>(x => x.Id).
-                HasColumnName("RoleId").
+                HasColumnName(PRIMRY_KEY_ROLE).
                 HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<ApplicationUserRole>().
-                ToTable("UserRole");
+                ToTable(TABLE_USE_RROLE);
             modelBuilder.Entity<ApplicationUserClaim>().
-                ToTable("Claim").
+                ToTable(TABLE_CLAIM).
                 Property<long>(x => x.Id).
-                HasColumnName("ClaimId").
+                HasColumnName(PRIMARY_KEY_CLAIM).
                 HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<ApplicationUserLogin>().
-                ToTable("Login");
+                ToTable(TABLE_LOGIN);
         }
     }
 }

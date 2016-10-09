@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using BitOfTech.WebApi22.Utility;
 
-
 /// <summary>
 /// 
 /// </summary>
@@ -25,7 +24,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// </summary>
         /// <returns></returns>
         [Authorize(Roles = UserRole.ADMIN)]
-        [Route("users")]
+        [Route(RouteNameConfig.ROUTE_TEMPLATE_USER)]
         [HttpGet]
         public IHttpActionResult GetUsers()
         {
@@ -38,7 +37,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// <param name="Id">The identifier.</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("user/{id}", Name = "GetUserById")]
+        [Route(RouteNameConfig.ROUTE_GET_USER_BY_ID, Name = RouteNameConfig.ROUTE_NAME_GET_USER_BY_ID)]
         [Authorize(Roles = UserRole.ADMIN)]
         public async Task<IHttpActionResult> GetUser(long Id)
         {
@@ -58,7 +57,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// </summary>
         /// <param name="username">The username.</param>
         /// <returns></returns>
-        [Route("user/{username}")]
+        [Route(RouteNameConfig.ROUTE_GET_USER_BY_USER_NAME)]
         [HttpGet]
         [Authorize(Roles = UserRole.ADMIN)]
         public async Task<IHttpActionResult> GetUserByName(string username)
@@ -132,7 +131,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        [Route(RouteNameConfig.ROUTE_CONFIRM_EMAIL, Name = RouteNameConfig.ROUTE_NAME_CONFIRM_EMAIL)]
         public async Task<IHttpActionResult> ConfirmEmail(long userId = 0, string code = "")
         {
             if (userId == 0 || string.IsNullOrWhiteSpace(code))
@@ -153,7 +152,7 @@ namespace BitOfTech.WebApi22.Controllers
             }
         }
 
-        [Route("ChangePassword")]
+        [Route(RouteNameConfig.ROUTE_CHANGE_PASSWORD)]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -171,7 +170,7 @@ namespace BitOfTech.WebApi22.Controllers
             return Ok();
         }
 
-        [Route("user/{id}")]
+        [Route(RouteNameConfig.ROUTE_GET_USER_BY_ID)]
         [HttpDelete]
         [Authorize(Roles = UserRole.ADMIN)]
         public async Task<IHttpActionResult> DeleteUser(long id)
@@ -198,7 +197,7 @@ namespace BitOfTech.WebApi22.Controllers
         }
 
         [Authorize(Roles = UserRole.ADMIN)]
-        [Route("user/{id}/roles")]
+        [Route(RouteNameConfig.ROUTE_GET_ROLES_BY_USER_ID)]
         [HttpPut]
         public async Task<IHttpActionResult> AssignRolesToUser([FromUri] long id, [FromBody] string[] rolesToAssign)
         {

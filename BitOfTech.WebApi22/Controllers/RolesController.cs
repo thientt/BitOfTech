@@ -23,7 +23,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// <param name="Id">The identifier.</param>
         /// <returns></returns>
         [HttpGet]
-        [Route(RouteNameConfig.ROUTE_TEMPLATE_ID, Name = RouteNameConfig.ROUTE_GET_ROLE_BY_ID)]
+        [Route(RouteNameConfig.ROUTE_TEMPLATE_ID, Name = RouteNameConfig.ROUTE_NAME_GET_ROLE_BY_ID)]
         public async Task<IHttpActionResult> GetRole(long Id)
         {
             var role = await this.AppRoleManager.FindByIdAsync(Id);
@@ -42,7 +42,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route(RouteNameConfig.ROUTE_TEMPLATE_ALL, Name = RouteNameConfig.ROUTE_GET_ALL_ROLES)]
+        [Route(RouteNameConfig.ROUTE_TEMPLATE_ALL, Name = RouteNameConfig.ROUTE_NAME_GET_ALL_ROLES)]
         public IHttpActionResult GetAllRoles()
         {
             var roles = this.AppRoleManager.Roles.Include(x => x.Users).ToList();
