@@ -6,6 +6,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using BitOfTech.WebApi22.Utility;
+
 
 /// <summary>
 /// 
@@ -22,7 +24,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// Gets the users.
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRole.ADMIN)]
         [Route("users")]
         [HttpGet]
         public IHttpActionResult GetUsers()
@@ -37,7 +39,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("user/{id}", Name = "GetUserById")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRole.ADMIN)]
         public async Task<IHttpActionResult> GetUser(long Id)
         {
             var user = await this.AppUserManager.FindByIdAsync(Id);
@@ -58,7 +60,7 @@ namespace BitOfTech.WebApi22.Controllers
         /// <returns></returns>
         [Route("user/{username}")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRole.ADMIN)]
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
             var user = await this.AppUserManager.FindByNameAsync(username);
@@ -172,7 +174,7 @@ namespace BitOfTech.WebApi22.Controllers
 
         [Route("user/{id}")]
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRole.ADMIN)]
         public async Task<IHttpActionResult> DeleteUser(long id)
         {
             //Only SuperAdmin or Admin can delete users (Later when implement roles)
@@ -196,7 +198,7 @@ namespace BitOfTech.WebApi22.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRole.ADMIN)]
         [Route("user/{id}/roles")]
         [HttpPut]
         public async Task<IHttpActionResult> AssignRolesToUser([FromUri] long id, [FromBody] string[] rolesToAssign)

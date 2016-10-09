@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Data.Entity;
-using System.Threading.Tasks;
-using BitOfTech.WebApi22.Infrastructure;
-using Microsoft.AspNet.Identity;
+﻿using BitOfTech.WebApi22.Infrastructure;
 using BitOfTech.WebApi22.Models;
+using BitOfTech.WebApi22.Utility;
+using Microsoft.AspNet.Identity;
+using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace BitOfTech.WebApi22.Controllers
 {
     /// <summary>
     /// 
     /// </summary>
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = UserRole.ADMIN)]
     [RoutePrefix("api/roles")]
     public class RolesController : BaseApiController
     {
