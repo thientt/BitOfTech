@@ -17,7 +17,7 @@ namespace BitOfTech.WebApi22.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/accounts")]
+    [RoutePrefix(RouteNameConfig.API_USER)]
     public class AccountController : BaseApiController
     {
         /// <summary>
@@ -79,9 +79,8 @@ namespace BitOfTech.WebApi22.Controllers
         /// </summary>
         /// <param name="createUserModel">The create user model.</param>
         /// <returns></returns>
-        [Route("create")]
+        [Route(RouteNameConfig.ROUTE_TEMPLATE_CREATE)]
         [HttpPost]
-        //[Authorize (Roles="Admin")]
         [AllowAnonymous]
         public async Task<IHttpActionResult> CreateUser(CreateUserBindingModel createUserModel)
         {
